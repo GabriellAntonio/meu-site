@@ -27,6 +27,14 @@ header .logo h1 {
     font-size: 24px;
 }
 
+.banner-logo {
+    width: 250px; /* Ajuste conforme necessário */
+    height: auto;
+    display: block;
+    margin: 0 auto 5px; /* Centraliza e adiciona um espaço abaixo */
+}
+
+
 /* Estilização do botão de WhatsApp flutuante */
 .whatsapp-button {
     position: fixed; /* Torna o botão fixo na tela */
