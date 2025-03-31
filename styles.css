@@ -122,12 +122,6 @@ h2 {
 
 .servicos-list {
     display: flex;
-    justify-content: center;
-    gap: 10px
-}
-
-.servicos-list {
-    display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
@@ -149,6 +143,7 @@ h2 {
         width: 100%; /* Ocupa toda a largura no celular */
     }
 }
+
 .servico h3 {
     font-size: 24px;
     margin-bottom: 10px;
