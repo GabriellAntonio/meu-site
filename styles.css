@@ -130,12 +130,12 @@ h2 {
 }
 
 .servico {
-    background: #000000;
+    background: #3e728c; /* Cor igual ao fundo da página */
     padding: 15px;
     border-radius: 8px;
     text-align: center;
-    width: 45%; /* Em telas grandes, divide em duas colunas */
-    min-width: 250px; /* Evita que fique muito pequeno */
+    width: 45%;
+    min-width: 250px;
     border: 4px solid #808080;
 }
 
