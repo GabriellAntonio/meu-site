@@ -14,7 +14,6 @@ body {
     line-height: 1.6;
 }
 
-
 /* Cabeçalho */
 header {
     background-color: rgba(0, 0, 0, 0.85);
@@ -76,6 +75,12 @@ nav ul li a:hover {
 .section {
     padding: 60px 20px;
     background-color: rgba(0, 0, 0, 0.6);
+}
+
+.servicos-titulo {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
 }
 
 .servicos-list {
