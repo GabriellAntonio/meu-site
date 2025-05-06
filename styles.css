@@ -1,15 +1,15 @@
-/* Reset de margens e paddings */
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Corpo do site */
+/* Corpo */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #3e728c; /* Alterado de #030202 para #3e728c */
+    background-color: #3e728c;
     color: #ffffff;
 }
 
@@ -26,44 +26,6 @@ header {
 header .logo h1 {
     font-size: 24px;
 }
-
-.banner-logo {
-    width: 250px;
-    height: auto;
-    display: block;
-    margin: 0 auto 5px;
-    border: 3px solid #000000; /* Adiciona a borda preta */
-    border-radius: 5px; /* Opcional: cantos levemente arredondados */
-}
-
-
-/* Estilização do botão de WhatsApp flutuante */
-.whatsapp-button {
-    position: fixed; /* Torna o botão fixo na tela */
-    bottom: 20px; /* Distância do fundo da tela */
-    right: 20px; /* Distância da lateral direita */
-    background-color: #25D366; /* Cor do botão do WhatsApp */
-    color: white;
-    padding: 15px;
-    border-radius: 50%; /* Torna o botão redondo */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para destacar o botão */
-    z-index: 1000; /* Garante que o botão fique sobre outros elementos */
-    transition: background-color 0.3s; /* Transição suave para cor de hover */
-}
-
-.whatsapp-button img {
-    width: 40px; /* Tamanho do ícone do WhatsApp */
-    height: 40px;
-}
-
-.whatsapp-button:hover {
-    background-color: #128C7E; /* Cor de hover para o botão */
-    transition: background-color 0.3s;
-}
-
 
 header nav ul {
     list-style: none;
@@ -84,9 +46,17 @@ header nav ul li a {
 .banner {
     background: url('https://via.placeholder.com/1600x600') no-repeat center center/cover;
     color: white;
-
     padding: 80px 20px;
     text-align: center;
+}
+
+.banner-logo {
+    width: 250px;
+    height: auto;
+    display: block;
+    margin: 0 auto 5px;
+    border: 3px solid #000000;
+    border-radius: 5px;
 }
 
 .banner h2 {
@@ -108,13 +78,22 @@ header nav ul li a {
 }
 
 .cta-button:hover {
-    background-color: #ff0000;
+    background-color: #cc0000;
 }
 
 /* Seções */
 .section {
     padding: 50px 20px;
     text-align: center;
+}
+
+/* Fundo da seção serviços */
+#servicos {
+    background-image: url('background.jpg'); /* coloque esse arquivo no mesmo diretório */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 60px 20px;
 }
 
 h2 {
@@ -130,7 +109,7 @@ h2 {
 }
 
 .servico {
-    background: #3e728c; /* Cor igual ao fundo da página */
+    background: #3e728c;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
@@ -139,10 +118,9 @@ h2 {
     border: 4px solid #808080;
 }
 
-/* Ajuste para telas menores */
 @media (max-width: 600px) {
     .servico {
-        width: 100%; /* Ocupa toda a largura no celular */
+        width: 100%;
     }
 }
 
@@ -161,6 +139,10 @@ form {
     flex-direction: column;
     width: 50%;
     margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #3e728c;
 }
 
 form label {
@@ -168,7 +150,8 @@ form label {
     font-size: 18px;
 }
 
-form input, form textarea {
+form input,
+form textarea {
     padding: 10px;
     margin-top: 5px;
     font-size: 16px;
@@ -186,21 +169,34 @@ form button {
     cursor: pointer;
 }
 
-
-
-.whatsapp-button img {
-    width: 30px; /* Tamanho do ícone */
-    margin-right: 10px; /* Espaço entre o ícone e o texto */
+form button:hover {
+    background-color: #e67e22;
 }
 
-.whatsapp-button:hover {
-    background-color: #128C7E; /* Cor de hover */
+/* WhatsApp */
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
     transition: background-color 0.3s;
 }
 
+.whatsapp-button img {
+    width: 30px;
+    height: 30px;
+}
 
-form button:hover {
-    background-color: #e67e22;
+.whatsapp-button:hover {
+    background-color: #128C7E;
 }
 
 /* Rodapé */
