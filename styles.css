@@ -46,12 +46,12 @@ nav ul li a:hover {
 /* Banner */
 .banner {
     text-align: center;
-    padding: 150px 20px;
+    padding: 100px 20px;
     background-color: rgba(0, 0, 0, 0.6);
 }
 
 .banner-logo {
-    width: 150px;
+    width: 200px;
     height: auto;
     margin-bottom: 20px;
 }
