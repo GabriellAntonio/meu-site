@@ -163,3 +163,19 @@ footer {
     width: 35px;
     height: 35px;
 }
+
+/* Estilo para o botão de "Acompanhe seu trabalho" */
+.work-button {
+    background-color: #3498db; /* Cor do fundo */
+    color: white;              /* Cor do texto */
+    padding: 10px 20px;        /* Espaçamento interno */
+    border-radius: 5px;        /* Bordas arredondadas */
+    text-decoration: none;     /* Remover sublinhado */
+    font-weight: bold;         /* Tornar o texto em negrito */
+    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+.work-button:hover {
+    background-color: #2980b9; /* Cor do fundo ao passar o mouse */
+}
+
