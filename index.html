@@ -1,178 +1,82 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel Gabriel TEC</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="icon" href="/logo.ico" />
-
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-    import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDepprbeNpba8COCLSkAH0xXA3nIqvlUHg",
-      authDomain: "painel-gabrieltec-6420b.firebaseapp.com",
-      projectId: "painel-gabrieltec-6420b",
-      storageBucket: "painel-gabrieltec-6420b.firebasestorage.app",
-      messagingSenderId: "919129799689",
-      appId: "1:919129799689:web:b8a3fb4049cd201e7a0cd8"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    const login = document.getElementById("login");
-    const adminPanel = document.getElementById("adminPanel");
-    const clientPanel = document.getElementById("clientPanel");
-    const pedidoLista = document.getElementById("pedidoLista");
-    const pedidoForm = document.getElementById("pedidoForm");
-
-    document.getElementById("adminLoginForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("adminEmail").value;
-      const password = document.getElementById("adminPassword").value;
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        login.classList.add("hidden");
-        adminPanel.classList.remove("hidden");
-        listarPedidos();
-      } catch (err) {
-        alert("Erro no login: " + err.message);
-      }
-    });
-
-    document.getElementById("clientLoginForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const cpf = document.getElementById("clientCPF").value;
-      const q = query(collection(db, "pedidos"), where("cpf", "==", cpf));
-      const snapshot = await getDocs(q);
-      login.classList.add("hidden");
-      clientPanel.classList.remove("hidden");
-      pedidoLista.innerHTML = "";
-      snapshot.forEach(doc => {
-        const pedido = doc.data();
-        const div = document.createElement("div");
-        div.className = "p-4 bg-gray-800 rounded-lg";
-        div.innerHTML = 
-          <h3 class="font-bold">${pedido.titulo}</h3>
-          <p>Status: ${pedido.status}</p>
-          <p>Entrega: ${pedido.dataEntrega}</p>
-          <p>Observações: ${pedido.observacoes}</p>
-        ;
-        pedidoLista.appendChild(div);
-      });
-    });
-
- async function listarPedidos() {
-  const snapshot = await getDocs(collection(db, "pedidos"));
-  const lista = document.getElementById("listaPedidosAdmin");
-  lista.innerHTML = "";
-  snapshot.forEach(docSnap => {
-    const p = docSnap.data();
-
-    // Define a cor do status
-    let statusColor = "";
-    switch (p.status?.toLowerCase()) {
-      case "em aberto":
-        statusColor = "text-green-400";
-        break;
-      case "desenvolvendo":
-        statusColor = "text-yellow-400";
-        break;
-      case "finalizado":
-        statusColor = "text-red-400";
-        break;
-      default:
-        statusColor = "text-gray-400";
-    }
-
-    const div = document.createElement("div");
-    div.className = "p-4 bg-gray-800 rounded-lg mt-4";
-    div.innerHTML = 
-      <h3 class="font-bold">${p.titulo}</h3>
-      <p>CPF: ${p.cpf}</p>
-      <p>Status: <span class="${statusColor} font-semibold">${p.status}</span></p>
-      <button class="btn-blue mt-2" onclick="editarStatus('${docSnap.id}')">Alterar Status</button>
-    ;
-    lista.appendChild(div);
-  });
-}
-
-
-    window.editarStatus = async function(id) {
-      const novo = prompt("Novo status:");
-      if (!novo) return;
-      const pedidoRef = doc(db, "pedidos", id);
-      await updateDoc(pedidoRef, { status: novo });
-      alert("Status atualizado.");
-      listarPedidos();
-    };
-
-    pedidoForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const titulo = document.getElementById("titulo").value;
-      const cpf = document.getElementById("cpf").value;
-      const status = document.getElementById("status").value;
-      const dataEntrega = document.getElementById("dataEntrega").value;
-      const observacoes = document.getElementById("observacoes").value;
-      await addDoc(collection(db, "pedidos"), { titulo, cpf, status, dataEntrega, observacoes });
-      alert("Pedido salvo.");
-      listarPedidos();
-      pedidoForm.reset();
-    });
-  </script>
-  <style>
-    .input { width: 100%; padding: 0.5rem; border-radius: 0.375rem; background-color: #1f2937; border: 1px solid #374151; color: white; }
-    .btn-blue { background-color: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; }
-    .btn-green { background-color: #10b981; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; }
-    .btn-red { background-color: #ef4444; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços de TI - Para sua Empresa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/logo.ico" />
 </head>
-<body class="bg-gray-900 text-white">
-  <div id="login" class="min-h-screen flex items-center justify-center">
-    <div class="bg-gray-800 p-6 rounded-lg w-full max-w-md">
-      <h2 class="text-2xl font-bold mb-4 text-center">Login - Gabriel TEC</h2>
+<body>
+    <header>
+        <div class="Gabriel TEC">
+            <h1>Gabriel TEC</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+               <li><a href="https://wa.me/5544988128462" target="_blank" rel="noopener noreferrer">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
 
-      <form id="adminLoginForm" class="space-y-4">
-        <input type="email" id="adminEmail" placeholder="Email (Admin)" class="input" required>
-        <input type="password" id="adminPassword" placeholder="Senha" class="input" required>
-        <button type="submit" class="btn-blue w-full">Entrar como Admin</button>
-      </form>
-
-      <hr class="my-4 border-gray-600">
-
-      <form id="clientLoginForm" class="space-y-4">
-        <input type="text" id="clientCPF" maxlength="14" placeholder="Digite seu CPF" class="input" required>
-        <button type="submit" class="btn-green w-full">Ver meus pedidos</button>
-      </form>
+       <section class="banner">
+    <div class="banner-content">
+        <img src="logo.png" alt="Gabriel TEC" class="banner-logo">            
+        <h2>Soluções de TI para Sua Empresa</h2>
+        <p>Oferecemos suporte técnico e consultoria.</p>
+        <!-- Substituindo o botão Fale Conosco pelo de WhatsApp -->
+        <a href="https://wa.me/5544988128462" class="whatsapp-button" target="_blank">
+            <img src="whatsapp-icon.png" alt="WhatsApp">
+        </a>
     </div>
+</section>
+
+<section id="servicos">
+  <h2>Serviços</h2>
+  
+  <div class="servico">
+    <h3>🔧 Suporte Técnico</h3>
+    <p>Oferecemos suporte remoto e presencial para empresas e residências. Resolvemos problemas de rede, lentidão, formatação, instalação de sistemas e muito mais, com atendimento rápido e confiável.</p>
   </div>
 
-  <div id="clientPanel" class="hidden p-4">
-    <h2 class="text-2xl font-bold mb-4">Seus Pedidos</h2>
-    <div id="pedidoLista" class="grid gap-4"></div>
-    <button onclick="location.reload()" class="btn-red mt-4">Sair</button>
+  <div class="servico">
+    <h3>🧠 Consultoria em TI</h3>
+    <p>Analisamos sua infraestrutura tecnológica e propomos melhorias em segurança, desempenho e organização. Ideal para empresas que querem crescer com tecnologia estável e moderna.</p>
   </div>
 
-  <div id="adminPanel" class="hidden p-4">
-    <h2 class="text-2xl font-bold mb-4">Novo Pedido</h2>
-    <form id="pedidoForm" class="grid gap-4 md:grid-cols-2">
-      <input type="text" id="titulo" placeholder="Título" class="input" required>
-      <input type="text" id="cpf" placeholder="CPF do cliente" class="input" required>
-      <input type="text" id="status" placeholder="Status" class="input" required>
-      <input type="date" id="dataEntrega" class="input">
-      <textarea id="observacoes" placeholder="Observações" class="input md:col-span-2" rows="3"></textarea>
-      <button type="submit" class="btn-blue md:col-span-2">Salvar Pedido</button>
-    </form>
-
-    <h2 class="text-2xl font-bold mt-6 mb-2">Pedidos Existentes</h2>
-    <div id="listaPedidosAdmin"></div>
-    <button onclick="location.reload()" class="btn-red mt-4">Sair</button>
+  <div class="servico">
+    <h3>📡 Instalação e Configuração de Redes</h3>
+    <p>Montamos e configuramos redes cabeadas e Wi-Fi, com roteadores, switches e cabeamento estruturado, para garantir estabilidade e performance no seu ambiente de trabalho ou casa.</p>
   </div>
+
+    </div>
+</section>
+	
+<section id="contato" class="section">
+    <h2 class="servicos-titulo">Fale Conosco</h2>
+    <p style="text-align: center; max-width: 600px; margin: 0 auto 30px;">
+        Tem dúvidas, precisa de suporte ou quer um orçamento? Estamos prontos para te atender no WhatsApp.
+    </p>
+    <div style="text-align: center;">
+        <a href="https://wa.me/5544988128462" target="_blank" class="cta-button">Chamar no WhatsApp</a>
+    </div>
+</section>
+	<section id="sobre" class="section">
+    <h2 class="servicos-titulo">Sobre a Gabriel TEC</h2>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+        A <strong>Gabriel TEC</strong> nasceu com o propósito de oferecer soluções digitais práticas, eficientes e acessíveis para o dia a dia. 
+        Unimos tecnologia, design e simplicidade para entregar serviços que realmente funcionam — sempre com foco em agilidade, personalização 
+        e um atendimento próximo.<br><br>
+        Seja para criar, organizar ou automatizar, estamos aqui para transformar ideias em realidade com criatividade e compromisso.
+    </p>
+</section>
+
+
+    <footer>
+        <p>&copy; 2025 Gabriel TEC. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
